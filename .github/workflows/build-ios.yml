@@ -33,6 +33,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Sayo-W-Jump-iOS-2.2091
-          path: extracted/sayo-w-jump/output/*.geode
+          path: output/*.geode
           if-no-files-found: error
           retention-days: 14
