@@ -1,0 +1,37 @@
+
+name: Build Sayo W Jump (iOS)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Extract project ZIP
+        run: |
+          unzip -o Sayo-W-Jump-iOS-Source.zip -d extracted
+          cp -R extracted/. .
+
+      - name: Build Geode mod
+        uses: geode-sdk/build-geode-mod@main
+        with:
+          sdk: given
+          cli: latest
+          target: iOS
+          build-config: Release
+
+      - name: Upload mod
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sayo-W-Jump-iOS-2.2091
+          path: '**/*.geode'
+          if-no-files-found: error
